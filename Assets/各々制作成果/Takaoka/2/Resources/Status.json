@@ -1,0 +1,44 @@
+{
+  "Monster": [
+    {
+      "Name": "スライム",
+      "Hp": 10,
+      "Power": 3,
+       "Speed": 1
+    },
+    {
+      "Name": "マンドラゴラ",
+      "Hp": 30,
+      "Power": 5,
+      "Speed": 3
+    },
+    {
+      "Name": "ドラゴン",
+      "Hp": 100,
+      "Power": 50,
+      "Speed": 5
+    }
+  ],
+
+
+  "Hand": [
+    {
+      "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    },
+    {
+      "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    },
+    {
+      "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    }
+  ]
+}
