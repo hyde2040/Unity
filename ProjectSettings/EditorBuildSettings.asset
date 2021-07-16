@@ -4,5 +4,38 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: e1154659ceac762429e2060ae849632b
+  - enabled: 1
+    path: Assets/Scenes/Introduction.unity
+    guid: ab6c80f39f9516e4eb1da7ad91b96448
+  - enabled: 1
+    path: Assets/Scenes/Map/Map.unity
+    guid: f460b57635e6b3f47a7f55b39b3b43fd
+  - enabled: 1
+    path: Assets/Scenes/Map/Map2.unity
+    guid: 706893c4acf32d8408ba8a9f133a5492
+  - enabled: 1
+    path: Assets/Scenes/Map/Map3.unity
+    guid: f6076890e53f2b44a81c9745dd8418fb
+  - enabled: 1
+    path: Assets/Scenes/Map/Map4.unity
+    guid: e6575edbbaa887145b248945c46a93a6
+  - enabled: 1
+    path: Assets/Scenes/Map/Map5.unity
+    guid: c72498989fcf26b439be969bad17dcaf
+  - enabled: 1
+    path: Assets/Scenes/Map/StartMap.unity
+    guid: 796f0b31a735ead44ab8f14b5898c0ca
+  - enabled: 1
+    path: Assets/Scenes/Map/TowerFirst.unity
+    guid: 5ee91d3ec55c94548861f7aec38b8c98
+  - enabled: 1
+    path: Assets/Scenes/Map/TowerSecond.unity
+    guid: 1a02b7657f15a0543b5b73e588e2adc5
+  - enabled: 1
+    path: Assets/Scenes/Map/TowerTop.unity
+    guid: 7966f65b9b1658c4592f87fb65c4401e
   m_configObjects: {}
