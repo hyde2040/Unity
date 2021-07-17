@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tag02
+  - Tag03
+  - Tag01
+  - Tag04
+  - Tag05
+  - MobB
+  - MobG
   layers:
   - Default
   - TransparentFX

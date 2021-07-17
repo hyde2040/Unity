@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: image0_4
+  m_Name: Mob_Boy
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -5427649129724351365, guid: 106e1e466982c514f84752ae94f5af23,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: a06f7bc654abc154b9202eedbb1c9c20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     //入力キーを方向に変換
-    float Xdirection ;
-    float Ydirection ;
+    static float Xdirection;
+    static float Ydirection;
+
+    float X;
+    float Y;
 
     //長押しの読み取り周期
     float HoldPress_Cycle = 0.0f;
@@ -38,6 +41,8 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         EndPos = transform.position;
+        animator.SetFloat("Xdirection", Xdirection);
+        animator.SetFloat("Ydirection", Ydirection);
     }
 
     //毎フレーム処理するもの
@@ -47,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
         Xdirection = Input.GetAxisRaw("Horizontal");
         Ydirection = Input.GetAxisRaw("Vertical");
+        MobRay();
 
         if (transform.position == EndPos)
         {
@@ -94,12 +100,16 @@ public class PlayerController : MonoBehaviour
         StartPos = transform.position;
         EndPos = new Vector2(StartPos.x + Move, StartPos.y);
         elapsedTime = 0;
+        animator.SetFloat("Xdirection", Xdirection);
+        animator.SetFloat("Ydirection", 0);
     }
     void MoveY(float Move)
     {
         StartPos = transform.position;
         EndPos = new Vector2(StartPos.x, StartPos.y + Move);
         elapsedTime = 0;
+        animator.SetFloat("Ydirection", Ydirection);
+        //animator.SetFloat("Xdirection", 0);
     }
 
     void Move()
@@ -121,26 +131,18 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                //Ray生成
-                Ray ray = new Ray(transform.position, Vector2.left);
                 CollisionRay();
             }
             if (Input.GetKey(KeyCode.D))
             {
-                //Ray生成
-                Ray ray = new Ray(transform.position, Vector2.right);
                 CollisionRay();
             }
             if (Input.GetKey(KeyCode.S))
             {
-                //Ray生成
-                Ray ray = new Ray(transform.position, Vector2.up);
                 CollisionRay();
             }
             if (Input.GetKey(KeyCode.W))
             {
-                //Ray生成
-                Ray ray = new Ray(transform.position, Vector2.down);
                 CollisionRay();
             }
         }
@@ -160,11 +162,11 @@ public class PlayerController : MonoBehaviour
         {
             PlayerMoveSub();
             HoldPress_Cycle = 0.0f;
-            if (i == 2)
-            {
-                intSteps++;
-                i = 0;
-            }
+            //if (i == 2)
+            //{
+            //    intSteps++;
+            //    i = 0;
+            //}
         }
     }
 
@@ -181,12 +183,6 @@ public class PlayerController : MonoBehaviour
         {
             PlayerMoveSub();
             HoldPress_Cycle = 0.0f;
-            //i++;
-            //if (i == 2)
-            //{
-            //    intSteps++;
-            //    i = 0;
-            //}
         }
     }
 
@@ -195,6 +191,8 @@ public class PlayerController : MonoBehaviour
     {
         //Ray生成
         Ray ray = new Ray(transform.position, new Vector2(Xdirection, Ydirection));
+        X = Xdirection;
+        Y = Ydirection;
 
         //Rayの長さ
         float distance = 1f;
@@ -235,47 +233,60 @@ public class PlayerController : MonoBehaviour
                 MoveY(0);
             }
         }
-        else
+        else if (transform.position == EndPos && Menu == false)
         {
-            if (transform.position == EndPos && Menu == false)
-            {
 
-                PlayerInput();
-                intSteps++;
-                //偶数
-                if (intSteps % 2 == 0)
+            PlayerInput();
+            intSteps++;
+            //偶数
+            if (intSteps % 2 == 0)
+            {
+                animator.SetBool("Step", true);
+                if (Xdirection != 0 && Ydirection == 0)
                 {
-                    animator.SetBool("Step", true);
-                    if (Xdirection != 0 && Ydirection == 0)
-                    {
-                        MoveX(Xdirection);
-                        animator.SetFloat("Xdirection", Xdirection);
-                        animator.SetFloat("Ydirection", 0);
-                    }
-                    else if (Ydirection != 0 && Xdirection == 0)
-                    {
-                        MoveY(Ydirection);
-                        animator.SetFloat("Ydirection", Ydirection);
-                        animator.SetFloat("Xdirection", 0);
-                    }
+                    MoveX(Xdirection);
                 }
-                //奇数
-                else if (intSteps % 2 != 0)
+                else if (Ydirection != 0 && Xdirection == 0)
                 {
-                    animator.SetBool("Step", false);
-                    if (Xdirection != 0 && Ydirection == 0)
-                    {
-                        MoveX(Xdirection);
-                        animator.SetFloat("Xdirection", Xdirection);
-                        animator.SetFloat("Ydirection", 0);
-                    }
-                    else if (Ydirection != 0 && Xdirection == 0)
-                    {
-                        MoveY(Ydirection);
-                        animator.SetFloat("Ydirection", Ydirection);
-                        animator.SetFloat("Xdirection", 0);
-                    }
+                    MoveY(Ydirection);
                 }
+            }
+            //奇数
+            else if (intSteps % 2 != 0)
+            {
+                animator.SetBool("Step", false);
+                if (Xdirection != 0 && Ydirection == 0)
+                {
+                    MoveX(Xdirection);
+                }
+                else if (Ydirection != 0 && Xdirection == 0)
+                {
+                    MoveY(Ydirection);
+                }
+            }
+
+        }
+    }
+
+    void MobRay()
+    {
+        //Ray生成
+        Ray ray = new Ray(transform.position, new Vector2(X, Y));
+
+        //Rayの長さ
+        float distance = 1f;
+
+        //----------Debug用、Rayの可視化----------
+        Debug.DrawRay(ray.origin, ray.direction * 1, Color.green, 1);
+
+        //2DのRayのHit判定
+        RaycastHit2D hit2D = Physics2D.Raycast((Vector2)ray.origin,
+            (Vector2)ray.direction, distance);
+        if (hit2D.collider && transform.position == EndPos)
+        {
+            if (hit2D.collider.CompareTag("MobB") && Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Hello");
             }
         }
     }
