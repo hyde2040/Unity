@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (hit2D.collider.CompareTag("Tag04"))
             {
-                SceneManager.LoadScene("Map4");
+                SceneManager.LoadScene("TowerFirst");
             }
             else if (hit2D.collider.CompareTag("Tag05"))
             {
