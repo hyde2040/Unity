@@ -343,6 +343,8 @@ GameObject:
   - component: {fileID: 2093438198}
   - component: {fileID: 2093438193}
   - component: {fileID: 2093438199}
+  - component: {fileID: 2093438200}
+  - component: {fileID: 2093438201}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -381,7 +383,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 66
     y: 69
-    width: 98
+    width: 97
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -393,6 +395,7 @@ MonoBehaviour:
   - {fileID: 2093438197}
   - {fileID: 2093438198}
   - {fileID: 2093438199}
+  - {fileID: 2093438200}
   suppressAllAutoSelections: 1
 --- !u!114 &2093438195
 MonoBehaviour:
@@ -420,7 +423,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 2093438194}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 2093438200}
   variables: []
   description: 
   stepPause: 1
@@ -527,3 +531,32 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &2093438200
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093438192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  targetObject: {fileID: 2093438192}
+  methodName: FadeScene
+  delay: 0
+--- !u!114 &2093438201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093438192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abab7cd34699421449ef71a02656f27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
