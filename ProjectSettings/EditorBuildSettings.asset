@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map/TowerTop.unity
     guid: 7966f65b9b1658c4592f87fb65c4401e
+  - enabled: 1
+    path: "Assets/\u5404\u3005\u5236\u4F5C\u6210\u679C/Watanuki/Scene/TowerStage.unity"
+    guid: 81cb6a8b4ec8487438db5e1b608a5200
   m_configObjects: {}
