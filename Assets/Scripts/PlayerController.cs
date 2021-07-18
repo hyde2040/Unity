@@ -282,9 +282,9 @@ public class PlayerController : MonoBehaviour
         //2DのRayのHit判定
         RaycastHit2D hit2D = Physics2D.Raycast((Vector2)ray.origin,
             (Vector2)ray.direction, distance);
-        if (hit2D.collider && transform.position == EndPos)
+        if (hit2D.collider && transform.position == EndPos && Input.GetMouseButtonDown(0))
         {
-            if (hit2D.collider.CompareTag("MobB") && Input.GetMouseButtonDown(0))
+            if (hit2D.collider.CompareTag("MobB"))
             {
                 Debug.Log("Hello");
             }
