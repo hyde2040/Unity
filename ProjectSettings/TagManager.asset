@@ -11,9 +11,16 @@ TagManager:
   - Tag05
   - MobB
   - MobG
+<<<<<<< HEAD
   - TagS
   - Tag02Out
   - Tag03Out
+=======
+  - Laser
+  - Enemy
+  - InTower
+  - UpTower
+>>>>>>> fb1d39d6b99fe8915b750810b389eba4cd72974c
   layers:
   - Default
   - TransparentFX

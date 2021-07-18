@@ -227,6 +227,14 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("Map5");
             }
+            else if (hit2D.collider.CompareTag("UpTower"))
+            {
+                SceneManager.LoadScene("TowerStage");
+            }
+            else if (hit2D.collider.CompareTag("InTower"))
+            {
+                SceneManager.LoadScene("TowerSecond");
+            }
             else
             {
                 MoveX(0);
