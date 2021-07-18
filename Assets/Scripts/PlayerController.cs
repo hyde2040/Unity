@@ -235,6 +235,10 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("TowerSecond");
             }
+            else if (hit2D.collider.CompareTag("UpUpTower"))
+            {
+                SceneManager.LoadScene("TowerTop");
+            }
             else
             {
                 MoveX(0);
