@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public bool Menu = false;
 
     //走る用
-    bool RunFlag = false;
+    static bool RunFlag = false;
 
     //Playerの歩数計算用
     int intSteps = 0;
