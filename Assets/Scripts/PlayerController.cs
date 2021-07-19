@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    //fungusシーンを取得
+    [SerializeField] private Scene Introduction;
+
     //入力キーを方向に変換
     static float Xdirection;
     static float Ydirection;
