@@ -14,6 +14,8 @@ public class Battle : MonoBehaviour
     public Text enemyMPtext;
     public Text text;
 
+    [SerializeField]Animator animator;
+
 
     public int enemyNo;
     public string enemyName = "バリウド";
@@ -28,7 +30,10 @@ public class Battle : MonoBehaviour
     int enemyCapture = 50;
     int ebuff = 0;
     int ebuffd = 0;
-    int ebuffT = 0;
+
+    int edebuff = 0;
+    int edebuffd = 5;
+    int edebuffT = 0;
 
     int tend = 0;
 
@@ -44,7 +49,7 @@ public class Battle : MonoBehaviour
     int[] mySkill = { 0, 2, 4, 3 };
     int buff = 0;
     int buffd = 0;
-    int buffT = 0;
+
 
     [SerializeField] Sprite[] monsImage_F;
     [SerializeField] Sprite[] monsImage_B;
@@ -63,6 +68,7 @@ public class Battle : MonoBehaviour
 
     void Start()
     {
+
         myHP = int.Parse(info.a[myNo, 1]);
         myHPmax = int.Parse(info.a[myNo, 1]);
         mySp = int.Parse(info.a[myNo, 2]);
@@ -116,6 +122,18 @@ public class Battle : MonoBehaviour
         {
             respn_my();
         }
+        
+        //雑
+        if (enemyHP <= 0)
+        {
+            enemyHP = 0;
+        }
+        if (myHP <= 0)
+        {
+            myHP = 0;
+        }
+
+
     }
 
     public void respn_E()
@@ -127,7 +145,8 @@ public class Battle : MonoBehaviour
         enemyAt = int.Parse(info.a[debagNo, 3]);
 
         sliders[2].maxValue = enemyHP;
-        sliders[3].maxValue = 100;
+        enemyMP= 100;
+        sliders[3].maxValue = enemyMP;
         enemyImage.sprite = monsImage_F[debagNo];
         for (int i = 0; i < 4; i++)
         {
@@ -142,6 +161,7 @@ public class Battle : MonoBehaviour
     }
     public void respn_my()
     {
+ 
         myName = info.a[debagNo2, 0];
         myHP = int.Parse(info.a[debagNo2, 1]);
         myHPmax = int.Parse(info.a[debagNo2, 1]);
@@ -149,7 +169,8 @@ public class Battle : MonoBehaviour
         myAt = int.Parse(info.a[debagNo2, 3]);
 
         sliders[0].maxValue = myHP;
-        sliders[1].maxValue = 100;
+        myMP = 100;
+        sliders[1].maxValue = myMP;
         myImage.sprite = monsImage_B[debagNo2];
         for (int i = 0; i < 4; i++)
         {
@@ -192,7 +213,7 @@ public class Battle : MonoBehaviour
 
     void SceneC()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("OKScene");
     }
     //==================================================================
     public void attackPriority() {
@@ -218,6 +239,7 @@ public class Battle : MonoBehaviour
     }
     public void EnemyAttack()
     {
+        animator.SetTrigger("Enemy");
 
         if (0 > (enemyMP - int.Parse(info.skill[enemySkill[enemyUseS], 4])))
         {
@@ -246,6 +268,8 @@ public class Battle : MonoBehaviour
             for (int i = 0; i < int.Parse(info.skill[enemySkill[enemyUseS], 3]); i++)
             {
                 int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+
+                if (d < 5) d = 5;
                 text.text += (d + "ダメージ　");
                 myHP -= d;
             }
@@ -269,6 +293,11 @@ public class Battle : MonoBehaviour
             myHP = 0;
             text.text = ("負けてしまった...");
         }
+        else if(enemyHP <= 0)
+        {
+            enemyHP = 0;
+            text.text = ("キミの勝ち！");
+        }
 
         //ターン処理
         tend++;
@@ -287,6 +316,7 @@ public class Battle : MonoBehaviour
     }
     public void myAttack()
     {
+        animator.SetTrigger("My");
         myMP -= int.Parse(info.skill[mySkill[myUseS], 4]);
 
         text.text = (myName+"の攻撃：" + info.skill[mySkill[myUseS], 0]+"\n");
@@ -296,11 +326,10 @@ public class Battle : MonoBehaviour
             for (int i = 0; i < int.Parse(info.skill[mySkill[myUseS], 3]); i++)
             {
                 int d = myAt +  int.Parse(info.skill[mySkill[myUseS], 2]);
-                if (buffT > 0 && buff == 1)
-                {
+
                     d += buffd;
-                    buffT--;
-                }
+
+
                 if (d < 5) d = 5;
 
                 text.text+=(d + "ダメージ　");
@@ -313,6 +342,10 @@ public class Battle : MonoBehaviour
         {
             buffs();
         }
+        else if (int.Parse(info.skill[mySkill[myUseS], 1]) == 2)
+        {
+            debuffs();
+        }
         else if (int.Parse(info.skill[mySkill[myUseS], 1]) == 3)
         {
             demerit();
@@ -323,11 +356,18 @@ public class Battle : MonoBehaviour
             debuffT = int.Parse(info.skill[mySkill[myUseS], 3]);
         }
 
-        if (enemyHP <= 0)
-        {
-            enemyHP = 0;
-            text.text = ("キミの勝ち！" );
-        }
+      
+            if (enemyHP <= 0)
+            {
+                enemyHP = 0;
+                text.text = ("キミの勝ち！");
+            }
+            else if (myHP <= 0)
+            {
+                myHP = 0;
+                text.text = ("負けてしまった...");
+            }
+        
         //ターン処理
         tend++;
         Debug.Log(""+tend);
@@ -421,6 +461,7 @@ public class Battle : MonoBehaviour
         if (mySkill[myUseS] == 5)
         {
             buffd += 5;
+            Debug.Log(buffd + "のチャージ");
         }
         if (mySkill[myUseS] == 6)
         {
@@ -430,9 +471,21 @@ public class Battle : MonoBehaviour
                 myHP = myHPmax;
             }
         }
+        if (mySkill[myUseS] == 11)
+        {
+            myHP += 200;
+            if (myHP > myHPmax)
+            {
+                myHP = myHPmax;
+            }
+        }
+        if (mySkill[myUseS] == 16)
+        {
+            buffd += int.Parse(info.skill[mySkill[myUseS], 2]);
+            Debug.Log(ebuffd + "のチャージ");
+        }
 
         buff = int.Parse(info.skill[mySkill[myUseS], 2]);
-        buffT = int.Parse(info.skill[mySkill[myUseS], 3]);
     }
     void buffs_E()
     {
@@ -445,6 +498,7 @@ public class Battle : MonoBehaviour
         if (enemySkill[enemyUseS] == 5)
         {
             ebuffd += 5;
+            Debug.Log(ebuffd + "のチャージ");
         }
         if (enemySkill[enemyUseS] == 6)
         {
@@ -454,22 +508,59 @@ public class Battle : MonoBehaviour
                 enemyHP = enemyHPmax;
             }
         }
+        if (enemySkill[enemyUseS] == 11)
+        {
+            enemyHP += 200;
+            if (enemyHP > enemyHPmax)
+            {
+                enemyHP = enemyHPmax;
+            }
+        }
+        if (enemySkill[enemyUseS] == 16)
+        {
+            ebuffd += int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+            Debug.Log(ebuffd + "のチャージ");
+        }
 
         ebuff = int.Parse(info.skill[enemySkill[enemyUseS], 2]);
-        ebuffT = int.Parse(info.skill[enemySkill[enemyUseS], 3]);
+
     }
 
+    //===デバフ==============================
+    void debuffs()
+    {
+        if (mySkill[myUseS] == 13)
+        {
+            enemyAt -= int.Parse(info.skill[mySkill[myUseS], 2]);
+            if (enemyAt < 0) enemyAt = 0;
+        }
+        if (mySkill[myUseS] == 14)
+        {
+            enemySp -= int.Parse(info.skill[mySkill[myUseS], 2]);
+        }
+    }
+    void debuffs_E()
+    {
+        if (enemySkill[enemyUseS] == 13)
+        {
+            myAt -= int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+            if (myAt < 0) myAt = 0;
+        }
+        if (enemySkill[enemyUseS] == 14)
+        {
+            mySp-= int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+        }
+
+    }
     //===デメリット付き==============================
     void demerit()
     {
         if (mySkill[myUseS] == 8)
         {
             int d = myAt + int.Parse(info.skill[mySkill[myUseS], 2]);
-            if (buffT > 0 && buff == 1)
-            {
+
                 d += buffd;
-                buffT--;
-            }
+
             text.text += (d + "ダメージ　" + myName + "は反動をうけた");
             enemyHP -= d;
             myHP -= int.Parse(info.skill[mySkill[myUseS], 3]);//デメリット部分
@@ -478,41 +569,63 @@ public class Battle : MonoBehaviour
         if (mySkill[myUseS] == 9)
         {
             int d = myAt + int.Parse(info.skill[mySkill[myUseS], 2]);
-            if (buffT > 0 && buff == 1)
-            {
+
                 d += buffd;
-                buffT--;
-            }
+                
+            
             text.text += (d + "ダメージ　" + myName + "は攻撃力が下がった");
             enemyHP -= d;
             myAt -= int.Parse(info.skill[mySkill[myUseS], 3]);//デメリット部分
+            if (myAt < 0)
+            {
+                myAt = 0;
+            }
+
 
         }
         if (mySkill[myUseS] == 10)
         {
             int d = myAt + int.Parse(info.skill[mySkill[myUseS], 2]);
-            if (buffT > 0 && buff == 1)
-            {
+
                 d += buffd;
-                buffT--;
-            }
+
             text.text += (d + "ダメージ　" + myName + "は体力を削り攻撃力が上げた");
             enemyHP -= d;
             myHP -= int.Parse(info.skill[mySkill[myUseS], 3]);//デメリット部分
-            myAt += int.Parse(info.skill[mySkill[myUseS], 3])/5;//メリット部分
+            myAt += 15;//メリット部分
 
         }
+        if (mySkill[myUseS] == 12)
+        {
+            int d = myAt + int.Parse(info.skill[mySkill[myUseS], 2]);
+            
+                d += buffd;
+                
+            text.text += (d + "ダメージ　" + myName + "は反動をうけた");
+            enemyHP -= d;
+            myHP -= int.Parse(info.skill[mySkill[myUseS], 3]);//デメリット部分
+        }
+        if (mySkill[myUseS] == 15)
+        {
+            int d = myAt + int.Parse(info.skill[mySkill[myUseS], 2]);
+            
+                d += buffd;
+                
+            text.text += (d + "ダメージ　" + myName + "は反動をうけた");
+            enemyHP -= d;
+            myHP -= int.Parse(info.skill[mySkill[myUseS], 3]);//デメリット部分
+        }
+
     }
     void demerit_E()
     {
+
         if (enemySkill[enemyUseS] == 8)
         {
             int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
-            if (ebuffT > 0 && ebuff == 1)
-            {
+            
                 d += ebuffd;
-                ebuffT--;
-            }
+                
             text.text += (d + "ダメージ　" + enemyName + "は反動をうけた");
             myHP -= d;
             enemyHP -= int.Parse(info.skill[enemySkill[enemyUseS], 3]);//デメリット部分
@@ -521,29 +634,49 @@ public class Battle : MonoBehaviour
         if (enemySkill[enemyUseS] == 9)
         {
             int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
-            if (ebuffT > 0 && ebuff == 1)
-            {
+            
                 d += ebuffd;
-                ebuffT--;
-            }
+               
             text.text += (d + "ダメージ　"+enemyName+"は攻撃が下がった");
             myHP -= d;
             enemyAt -= int.Parse(info.skill[enemySkill[enemyUseS], 3]);//デメリット部分
+            if (enemyAt<0)
+            {
+                enemyAt = 0;
+            }
 
         }
         if (enemySkill[enemyUseS] == 10)
         {
             int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
-            if (ebuffT > 0 && ebuff == 1)
-            {
+            
                 d += ebuffd;
-                ebuffT--;
-            }
+            
             text.text += (d + "ダメージ　" + enemyName + "は体力を削り攻撃力を上げた");
             myHP -= d;
             enemyHP -= int.Parse(info.skill[enemySkill[enemyUseS], 3]);    //デメリット部分
-            enemyAt += int.Parse(info.skill[enemySkill[enemyUseS], 3]) / 5;//メリット部分
+            enemyAt +=15;//メリット部分
 
+        }
+        if (enemySkill[enemyUseS] == 12)
+        {
+            int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+            
+                d += ebuffd;
+            
+            text.text += (d + "ダメージ　" + enemyName + "は反動をうけた");
+            myHP -= d;
+            enemyHP -= int.Parse(info.skill[enemySkill[enemyUseS], 3]);//デメリット部分
+        }
+        if (enemySkill[enemyUseS] == 15)
+        {
+            int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
+            
+                d += ebuffd;
+                
+            text.text += (d + "ダメージ　" + enemyName + "は反動をうけた");
+            myHP -= d;
+            enemyHP -= int.Parse(info.skill[enemySkill[enemyUseS], 3]);//デメリット部分
         }
     }
     //===メニュー========================
