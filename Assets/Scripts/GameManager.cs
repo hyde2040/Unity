@@ -4,28 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject Manager;
-    public AudioClip[] BGM;
-    bool FeelBGM=false;
-    public int BGMNum;
-    public AudioSource audioSource;
-    // Start is called before the first frame update
+    public int musicToPlay;
+    private bool musicStarted;
     void Start()
     {
-        DontDestroyOnLoad(Manager);
-        audioSource= GetComponent<AudioSource>();
-        audioSource.clip = BGM[BGMNum];
-        audioSource.Play();
+        //if (!musicStarted)
+        //{
+        //    musicStarted = true;
+        //    AudioManager.instance.PlayBGM(musicToPlay);
+        //    Debug.Log("1");
+        //}
+        DontDestroyOnLoad(this.gameObject);
+        //audioSource= GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!FeelBGM&&BGMNum==1)
-        {
-            audioSource.clip = BGM[BGMNum];
-            audioSource.Play();
-            FeelBGM = true;
-        }
+
     }
 }
