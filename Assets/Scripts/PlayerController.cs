@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     int intSteps = 0;
     bool boolSteps;
 
-    int i = 0;
+    //int i = 0;
 
     //Playerのアニメーション用
     private Animator animator;
@@ -211,7 +211,11 @@ public class PlayerController : MonoBehaviour
         //colliderに当たった際の処理
         if (hit2D.collider)
         {
-            if (hit2D.collider.CompareTag("Tag01"))
+            if (hit2D.collider.CompareTag("TagStart"))
+            {
+                SceneManager.LoadScene("StartMap");
+            }
+            else if (hit2D.collider.CompareTag("Tag01"))
             {
                 SceneManager.LoadScene("Map");
             }
@@ -219,7 +223,15 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("Map2");
             }
+            else if (hit2D.collider.CompareTag("Tag02Out"))
+            {
+                SceneManager.LoadScene("Map2");
+            }
             else if (hit2D.collider.CompareTag("Tag03"))
+            {
+                SceneManager.LoadScene("Map3");
+            }
+            else if (hit2D.collider.CompareTag("Tag03Out"))
             {
                 SceneManager.LoadScene("Map3");
             }
@@ -306,4 +318,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 }

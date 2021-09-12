@@ -13,6 +13,11 @@ TagManager:
   - Tag05
   - UpTower
   - InTower
+  - MobB
+  - Tag03Out
+  - MobG
+  - Tag02Out
+  - TagStart
   layers:
   - Default
   - TransparentFX
