@@ -41,33 +41,45 @@ public class AudioManager : MonoBehaviour
             source.Play();
         }
 
+        if (beforeScene == "Map5" && nextScene.name == "TowerFirst")
+        {
+            source.Stop();
+            source.clip = BGM[2];    //流すクリップを切り替える
+            source.Play();
+        }
+
+        if (beforeScene == "Map"|| beforeScene == "Map2" || beforeScene == "Map3" || beforeScene == "Map4" || beforeScene == "Map5"
+            || beforeScene == "TowerFirst" || beforeScene == "TowerSecond" || beforeScene == "TowerTop")
+
+        {
+            if (nextScene.name == "Battle")
+            {
+                source.Stop();
+                source.clip = BGM[3];    //流すクリップを切り替える
+                source.Play();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        if (beforeScene == "Battle")
+        {
+            if (nextScene.name == "Map" || nextScene.name == "Map2" || nextScene.name == "Map3" || nextScene.name == "Map4" || nextScene.name == "Map5"
+            || nextScene.name == "TowerFirst" || nextScene.name == "TowerSecond" || nextScene.name == "TowerTop")
+            {
+                source.Stop();
+                source.clip = BGM[1];    //流すクリップを切り替える
+                source.Play();
+            }
+            else
+            {
+                return;
+            }
+        }
+
         //遷移後のシーン名を「１つ前のシーン名」として保持
         beforeScene = nextScene.name;
     }
-    //public void PlaySFX(int soundToPlay)
-    //{
-    //    if (soundToPlay < sfx.Length)
-    //    {
-    //        sfx[soundToPlay].Play();
-    //    }
-    //}
-    //public void PlayBGM(int musicToPlay)
-    //{
-    //    Debug.Log("BGM");
-    //    if (!bgm[musicToPlay].isPlaying)
-    //    {
-    //        StopMusic();
-    //        if (musicToPlay < bgm.Length)
-    //        {
-    //            bgm[musicToPlay].Play();
-    //        }
-    //    }
-    //}
-    //public void StopMusic()
-    //{
-    //    for (int i = 0; i < bgm.Length; i++)
-    //    {
-    //        bgm[i].Stop();
-    //    }
-    //}
 }
