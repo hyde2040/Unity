@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
     //Playerのアニメーション用
     private Animator animator;
 
+    //fungus
+    public Fungus.Flowchart flowchart = null;
+    public string SendMessage = "";
+    public string SendMessage1 = "";
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -255,10 +260,21 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("TowerTop");
             }
-            //fungus読み込み
-            else if (hit2D.collider.CompareTag("Mob"))
+            else if (hit2D.collider.CompareTag("Mob1"))
             {
-
+                flowchart.SendFungusMessage(SendMessage);
+                MoveX(0);
+                MoveY(0);
+            }
+            else if (hit2D.collider.CompareTag("Mob2"))
+            {
+                flowchart.SendFungusMessage(SendMessage1);
+                MoveX(0);
+                MoveY(0);
+            }
+            else if (hit2D.collider.CompareTag("Boss"))
+            {
+                flowchart.SendFungusMessage(SendMessage);
                 MoveX(0);
                 MoveY(0);
             }

@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Map/TowerSecond.unity
     guid: 1a02b7657f15a0543b5b73e588e2adc5
   - enabled: 1
+    path: Assets/Scenes/Battle/OKScene.unity
+    guid: 2809a3cf420ac2b4d8ccb6ddba5d0652
+  - enabled: 1
     path: Assets/Scenes/Map/TowerTop.unity
     guid: 7966f65b9b1658c4592f87fb65c4401e
   - enabled: 1

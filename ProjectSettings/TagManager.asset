@@ -18,6 +18,9 @@ TagManager:
   - MobG
   - Tag02Out
   - TagStart
+  - Boss
+  - Mob1
+  - Mob2
   layers:
   - Default
   - TransparentFX
