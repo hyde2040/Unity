@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
             source.Play();
         }
 
-        if (beforeScene == "Map5" && nextScene.name == "TowerFirst")
+        if (beforeScene == "TowerFirst" && nextScene.name == "TowerSecond")
         {
             source.Stop();
             source.clip = BGM[2];    //流すクリップを切り替える
@@ -81,5 +81,6 @@ public class AudioManager : MonoBehaviour
 
         //遷移後のシーン名を「１つ前のシーン名」として保持
         beforeScene = nextScene.name;
+        Debug.Log(beforeScene);
     }
 }

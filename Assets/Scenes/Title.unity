@@ -980,17 +980,47 @@ PrefabInstance:
         type: 3}
       propertyPath: BGM.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: e6e0ebcfbe544b44387d64065647626c, type: 3}
+      objectReference: {fileID: 8300000, guid: 1c72e3cc476b7ce43bd2d4e045123b11, type: 3}
     - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
         type: 3}
       propertyPath: BGM.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: e1f5c2beb006042448bdc93496a34629, type: 3}
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
     - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
         type: 3}
       propertyPath: BGM.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: b99af53e0cf1b1140b04a8c5ececb64a, type: 3}
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
+    - target: {fileID: -4664197303054422304, guid: 874e70dd1643ba24f89926343ebbf36f,
+        type: 3}
+      propertyPath: BGM.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9583ef0900c0d345b095b1a4885026e, type: 3}
     - target: {fileID: 19939169024249346, guid: 874e70dd1643ba24f89926343ebbf36f,
         type: 3}
       propertyPath: m_Enabled
