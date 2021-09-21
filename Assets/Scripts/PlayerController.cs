@@ -255,6 +255,13 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("TowerTop");
             }
+            //fungus読み込み
+            else if (hit2D.collider.CompareTag("Mob"))
+            {
+
+                MoveX(0);
+                MoveY(0);
+            }
             else
             {
                 MoveX(0);
