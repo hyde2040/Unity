@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
             source.Play();
         }
 
-        if (beforeScene == "TowerFirst" && nextScene.name == "TowerSecond")
+        if (beforeScene == "Map" && nextScene.name == "TowerSecond")
         {
             source.Stop();
             source.clip = BGM[2];    //流すクリップを切り替える

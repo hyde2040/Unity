@@ -65,7 +65,7 @@ public class Battle : MonoBehaviour
     int debagNo = 0;
     int debagNo2 = 6;
 
-    int[] HPsave = { 250, 0, 0, 0, 300, 0, 700 };
+    int[] HPsave = { 25, 0, 0, 0, 30, 0, 70 };
     int[] MPsave = { 100, 0, 0, 0, 100, 0, 100 };
 
 
@@ -131,7 +131,6 @@ public class Battle : MonoBehaviour
         {
             enemyHP = 0;
         }
-
         if (HPsave[0] <= 0&&HPsave[4] <= 0&&HPsave[6] <= 0) {
 
             myHP = 0;
@@ -142,7 +141,13 @@ public class Battle : MonoBehaviour
         {
             myHP = 0;
             text.text = (myName + "は倒れてしまった...");
+            //for (int i = 0; i < buttons.Length; i++)
+            //{
+            //    buttons[i].enabled = true;
+            //}
+            
         }
+        HPsave[debagNo2] = myHP;
     }
     public void respn_E()
     {
@@ -232,12 +237,17 @@ public class Battle : MonoBehaviour
         Invoke("EnemyAttack", 1f);
     }
 
+        
     void SceneC()
     {
-        SceneManager.LoadScene("OKScene");
+        SceneManager.LoadScene("GameOver");
     }
-    //==================================================================
-    public void attackPriority()
+    void SceneC2()
+    {
+        SceneManager.LoadScene("GameClear");
+    }
+        //==================================================================
+        public void attackPriority()
     {
 
 
@@ -313,11 +323,13 @@ public class Battle : MonoBehaviour
         {
             myHP = 0;
             text.text = (myName + "は倒れてしまった...");
+
         }
         else if(enemyHP <= 0)
         {
             enemyHP = 0;
             text.text = ("キミの勝ち！");
+            Invoke("SceneC2", 1f);
         }
 
         //ターン処理
@@ -382,7 +394,8 @@ public class Battle : MonoBehaviour
             {
                 enemyHP = 0;
                 text.text = ("キミの勝ち！");
-            }
+            Invoke("SceneC2", 1f);
+        }
             else if (myHP <= 0)
             {
                 myHP = 0;
