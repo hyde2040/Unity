@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class Battle : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject tooltip;
+    public Animator animator;
     public info info;
     public Text myHPtext;
     public Text myMPtext;
     public Text enemyHPtext;
     public Text enemyMPtext;
     public Text text;
-
-    [SerializeField]Animator animator;
 
 
     public int enemyNo;
@@ -40,13 +40,13 @@ public class Battle : MonoBehaviour
     public int myNo;
     public string myName = "アッチャ";
     [SerializeField] Image myImage;
-    public int myHP = 100;
+    public int myHP = 250;
     public int myHPmax = 100;
     public int myMP = 100;
     public int mySp = 10;
     public int myAt = 12;
     public int myUseS = 0;
-    int[] mySkill = { 0, 2, 4, 3 };
+    public int[] mySkill = { 0, 2, 4, 3 };
     int buff = 0;
     int buffd = 0;
 
@@ -63,12 +63,14 @@ public class Battle : MonoBehaviour
 
     [SerializeField] Slider[] sliders;
     int debagNo = 0;
-    int debagNo2 = 0;
+    int debagNo2 = 6;
+
+    int[] HPsave = { 250, 0, 0, 0, 300, 0, 700 };
+    int[] MPsave = { 100, 0, 0, 0, 100, 0, 100 };
 
 
     void Start()
     {
-
         myHP = int.Parse(info.a[myNo, 1]);
         myHPmax = int.Parse(info.a[myNo, 1]);
         mySp = int.Parse(info.a[myNo, 2]);
@@ -81,6 +83,7 @@ public class Battle : MonoBehaviour
 
 
         debagNo = enemyNo;
+        myHP = HPsave[6];
         respn_E();
         respn_my();
         //自キャラ読み込み
@@ -114,28 +117,33 @@ public class Battle : MonoBehaviour
         sliders[2].value = enemyHP;
         sliders[3].value = enemyMP;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            respn_E();
-        }
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            respn_my();
-        }
-        
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    respn_E();
+        //}
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    respn_my();
+        //}
+
         //雑
         if (enemyHP <= 0)
         {
             enemyHP = 0;
         }
-        if (myHP <= 0)
+
+        if (HPsave[0] <= 0&&HPsave[4] <= 0&&HPsave[6] <= 0) {
+
+            myHP = 0;
+            text.text = ( "あなたは負けてしまった...");
+            Invoke("SceneC", 2f);
+        }
+        else if (myHP <= 0)
         {
             myHP = 0;
+            text.text = (myName + "は倒れてしまった...");
         }
-
-
     }
-
     public void respn_E()
     {
         enemyName = info.a[debagNo, 0];
@@ -161,16 +169,34 @@ public class Battle : MonoBehaviour
     }
     public void respn_my()
     {
- 
+        HPsave[debagNo2] = myHP;
+        MPsave[debagNo2] = myMP;
+        if (debagNo2 == 4)
+        {
+            debagNo2 = 6;
+        }
+        else if (debagNo2 == 6)
+        {
+            debagNo2 = 0;
+        }
+        else if (debagNo2 == 0)
+        {
+            debagNo2 = 4;
+        }
+        myHP = HPsave[debagNo2];
+        myMP = MPsave[debagNo2];
+
         myName = info.a[debagNo2, 0];
-        myHP = int.Parse(info.a[debagNo2, 1]);
+        myHP = HPsave[debagNo2];
+
+
+
         myHPmax = int.Parse(info.a[debagNo2, 1]);
         mySp = int.Parse(info.a[debagNo2, 2]);
         myAt = int.Parse(info.a[debagNo2, 3]);
 
-        sliders[0].maxValue = myHP;
-        myMP = 100;
-        sliders[1].maxValue = myMP;
+        sliders[0].maxValue = myHPmax;
+
         myImage.sprite = monsImage_B[debagNo2];
         for (int i = 0; i < 4; i++)
         {
@@ -178,11 +204,6 @@ public class Battle : MonoBehaviour
             buttan[i].text = info.skill[mySkill[i], 0];
         }
 
-        debagNo2++;
-        if (debagNo2 >= monsImage_B.Length)
-        {
-            debagNo2 = 0;
-        }
         resetText();
     }
 
@@ -216,7 +237,8 @@ public class Battle : MonoBehaviour
         SceneManager.LoadScene("OKScene");
     }
     //==================================================================
-    public void attackPriority() {
+    public void attackPriority()
+    {
 
 
         if (mySp == enemySp)
@@ -239,7 +261,7 @@ public class Battle : MonoBehaviour
     }
     public void EnemyAttack()
     {
-        animator.SetTrigger("Enemy");
+                animator.SetTrigger("Enemy");//追加
 
         if (0 > (enemyMP - int.Parse(info.skill[enemySkill[enemyUseS], 4])))
         {
@@ -268,7 +290,6 @@ public class Battle : MonoBehaviour
             for (int i = 0; i < int.Parse(info.skill[enemySkill[enemyUseS], 3]); i++)
             {
                 int d = enemyAt + int.Parse(info.skill[enemySkill[enemyUseS], 2]);
-
                 if (d < 5) d = 5;
                 text.text += (d + "ダメージ　");
                 myHP -= d;
@@ -291,7 +312,7 @@ public class Battle : MonoBehaviour
         if (myHP <= 0)
         {
             myHP = 0;
-            text.text = ("負けてしまった...");
+            text.text = (myName + "は倒れてしまった...");
         }
         else if(enemyHP <= 0)
         {
@@ -316,7 +337,7 @@ public class Battle : MonoBehaviour
     }
     public void myAttack()
     {
-        animator.SetTrigger("My");
+        animator.SetTrigger("My");//追加
         myMP -= int.Parse(info.skill[mySkill[myUseS], 4]);
 
         text.text = (myName+"の攻撃：" + info.skill[mySkill[myUseS], 0]+"\n");
@@ -365,9 +386,8 @@ public class Battle : MonoBehaviour
             else if (myHP <= 0)
             {
                 myHP = 0;
-                text.text = ("負けてしまった...");
-            }
-        
+            text.text = (myName + "は倒れてしまった...");
+        }
         //ターン処理
         tend++;
         Debug.Log(""+tend);
@@ -417,7 +437,7 @@ public class Battle : MonoBehaviour
         if (enemyHP > 0 && myHP > 0)
         {
             myUseS = UseS;
-            if (0 > (myMP - int.Parse(info.skill[mySkill[myUseS], 4]))  )
+            if (0 > (myMP - int.Parse(info.skill[mySkill[myUseS], 4])))
             {
                 Debug.Log(myMP - int.Parse(info.skill[mySkill[myUseS], 4]));
                 text.text = ("MPが足りません");
@@ -427,12 +447,19 @@ public class Battle : MonoBehaviour
                 }
                 return;
             }
+
             enemyUseS = Random.Range(0, 4);
             attackPriority();
         }
         else if (myHP <= 0)
         {
-            text.text = ("おまえの負け。\nなんで負けたか明日まで考えといてください。");
+            text.text = (myName + "は動けない...!");
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].enabled = true;
+            }
+            return;
+
         }
         else
         {
@@ -482,7 +509,7 @@ public class Battle : MonoBehaviour
         if (mySkill[myUseS] == 16)
         {
             buffd += int.Parse(info.skill[mySkill[myUseS], 2]);
-            Debug.Log(ebuffd + "のチャージ");
+            Debug.Log(buffd + "のチャージ");
         }
 
         buff = int.Parse(info.skill[mySkill[myUseS], 2]);
@@ -687,6 +714,7 @@ public class Battle : MonoBehaviour
     }
     public void ReturnMenu()
     {
+        tooltip.gameObject.SetActive(false);
         hide[0].gameObject.SetActive(false);
         hide[1].gameObject.SetActive(false);
     }

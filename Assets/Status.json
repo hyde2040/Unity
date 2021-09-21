@@ -1,0 +1,83 @@
+﻿{
+  "Monster": [
+    {
+      {
+        "Name": "アッチャ",
+        "Hp": 250,
+        "Power": 15,
+        "Speed": 32,
+        "Skill": [ 0, 2, 4, 3 ]
+      },
+      {
+        "Name": "黒",
+        "Hp": 3000,
+        "Power": 25,
+        "Speed": 20,
+        "Skill": [ 17, 10, 2, 12 ]
+      },
+      {
+        "Name": "白",
+        "Hp": 1200,
+        "Power": 70,
+        "Speed": 30,
+        "Skill": [ 17, 9, 11, 16 ]
+      },
+      {
+        "Name": "バリウド",
+        "Hp": 300,
+        "Power": 10,
+        "Speed": 35,
+        "Skill": [ 0, 1, 13, 14 ]
+      },
+      {
+        "Name": "ヒュルウド",
+        "Hp": 300,
+        "Power": 10,
+        "Speed": 35,
+        "Skill": [ 0, 13, ,14 ,15 ]
+      },
+      {
+        "Name": "ロックゴーレム",
+        "Hp": 400,
+        "Power": 12,
+        "Speed": 5,
+        "Skill": [ 0, 5, 6, 8 ]
+      },
+      {
+        "Name": "マナゴーレム",
+        "Hp": 700,
+        "Power": 1,
+        "Speed": 1,
+        "Skill": [ 0, 5, 6, 8 ]
+      },
+      {
+        "Name": "ウィンクル",
+        "Hp": 200,
+        "Power": 30,
+        "Speed": 50,
+        "Skill": [ 0, 2, 5, 8 ]
+      }
+  ],
+
+
+  "Hand": [
+    {
+        "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    },
+    {
+        "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    },
+    {
+        "Name": null,
+      "Hp": null,
+      "Power": null,
+      "Speed": null
+    }
+  ]
+}
